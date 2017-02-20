@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<!--
+	Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
+	
+	This file is part of the WOLF3D Browser Version GPL Source Code. 
+    
+    Hacked by Ramsey Nasser ;)
+	-->
+	<meta charset="UTF-8">
+	<title>Dialogue 3-D</title>
+    <style>
+        body {
+            font-family: monospace;
+            color: white;
+            background-color : black;
+            text-align : center;
+        }
+        #controls {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width : 640px;
+            height : 1em;
+            margin-top : 210px;
+            margin-left : -320px;
+            text-align: center;
+        }
+        #wolf3d {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-top : -200px;
+            margin-left : -320px;
+            border : none;
+            width : 640px;
+            height : 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="wolf3d" src="wolf3d.html" mozallowfullscreen="true" webkitallowfullscreen="true">
+    </iframe>
+    <div id="controls">
+        <b>[click]</b>=start
+        <b>[arrows]</b>=move
+        <b>[space]</b>=open doors
+        <b>[x]</b>=attack
+    </div>
+    
+    
+    <script>
+        window.onfocus = function() {
+            var game = window.frames[0];
+            if (game) {
+                game.focus();
+            }
+        };
+        window.oncontextmenu = function(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            var game = window.frames[0];
+            if (game && game.Wolf && game.Wolf.Input) {
+                if (game.Wolf.Input.rightMouseDown()) {
+                    game.Wolf.Input.resetMouse();
+                }
+            }
+            return false;
+        }
+        window.onmouseup = function(e) {
+            var game = window.frames[0];
+            if (game && game.Wolf && game.Wolf.Input) {
+                if (game.Wolf.Input.rightMouseDown() || game.Wolf.Input.leftMouseDown()) {
+                    game.Wolf.Input.resetMouse();
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    return false;
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>
